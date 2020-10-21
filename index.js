@@ -22,8 +22,10 @@ export default new Vuex.Store({
         zip: context.state.zip
       };
       await axios
-        .get("https://apis.postcode-jp.com/api/v4/postcodes/1000001?apiKey=dJvv45MtIjSAW6KJuJ3ExbFK5n5ZiLAgm2IlOaG", {
-          params: { zipcode: payload.zip }
+        .get(
+          "https://apis.postcode-jp.com/api/v3/postcodes?postcode=?ApiKey=dJvv45MtIjSAW6KJuJ3ExbFK5n5ZiLAgm2IlOaG",
+          {
+            params: { postcode: payload.zip },
         })
         .then(res => {
           payload.address = res.data.data.fullAddress;
