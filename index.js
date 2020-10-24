@@ -6,31 +6,19 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    zip: "",
     address: "",
   },
   mutations: {
-    getAddress(state, zip, address) {
-      state.zip = zip;
-      state.address = address;
-    }
+    getAddress(state, payload) {
+      state.address = payload;
+    },
   },
   actions: {
-    async getAddressAction(context) {
-      const payload = {
-        address: "",
-        zip: context.state.zip
-      };
-      await axios
-        .get(
-          "https://apis.postcode-jp.com/api/v3/postcodes?postcode=?ApiKey=dJvv45MtIjSAW6KJuJ3ExbFK5n5ZiLAgm2IlOaG",
-          {
-            params: { postcode: payload.zip },
-        })
-        .then(res => {
-          payload.address = res.data.data.fullAddress;
-        });
-      context.commit("getAddress", payload);
-    }
-  }
+    async getAddressAction(context, payload) {
+      const res = await axios.get(
+        `https://apis.postcode-jp.com/api/v3/postcodes/${payload}?apiKey=dJvv45MtIjSAW6KJuJ3ExbFK5n5ZiLAgm2IlOaG`
+      );
+      context.commit("getAddress", res.data.allAddress);
+    },
+  },
 });
