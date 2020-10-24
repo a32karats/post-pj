@@ -7,27 +7,20 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
-  name: "HelloWorld",
   data() {
     return {
       zip: ""
     };
   },
   computed: {
-    ...mapState({
-      zip: state => state.zip
-    }),
     address() {
-      return this.$store.state.zip.address;
+      return this.$store.state.address;
     }
   },
   methods: {
-    getAddress() {
-      this.$store.commit("getAddress", this.zip);
-      this.$store.dispatch("getAddressAction");
+    async getAddress() {
+      await this.$store.dispatch("getAddressAction",this.zip);
     }
   }
 };
