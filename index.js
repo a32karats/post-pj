@@ -22,3 +22,5 @@ export default new Vuex.Store({
     },
   },
 });
+
+<style></style>
